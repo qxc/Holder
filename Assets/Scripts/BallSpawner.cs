@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BallSpawner : MonoBehaviour {
     public Transform ball;
-    int xRange = 5;
-    int yRange = 5;
+    int xRange = 8;
+    int yRange = 4;
 
 	// Use this for initialization
 	void Start () {
@@ -13,12 +13,13 @@ public class BallSpawner : MonoBehaviour {
 	}
 	void spawnBall()
     {
-        int x = Random.Range(-xRange, xRange);
-        int y = Random.Range(-yRange, yRange);
+        int x = Random.Range(-xRange, -xRange+9);
+        int y = Random.Range(-yRange, yRange+1);
         var newBall = Instantiate(ball, new Vector3(x, y, 0), Quaternion.identity);
-        newBall.Translate(-10, 0, 0);
-        //Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-        //rb.velocity = new Vector3(0, 10000, 0);
+        Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
+        //rb.velocity = new Vector3(0, 15, 0);
+        rb.AddForce(new Vector3(350, 200-25*y, 0));
+        //add some rng to how much force is applied
 
     }
 }

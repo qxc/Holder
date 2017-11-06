@@ -11,21 +11,18 @@ public class Ball : MonoBehaviour {
     {
         print("Ball bounced");
         if (life == 5)
-            gameObject.GetComponent<Renderer>().material.color = new Color(50, 0,0);
+            gameObject.GetComponent<Renderer>().material.color = new Color(255, 0,0);
         if (life == 4)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 50, 0);
+            gameObject.GetComponent<Renderer>().material.color = new Color(0, 50, 50);
         if (life == 3)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
+            gameObject.GetComponent<Renderer>().material.color = new Color(255, 190, 0);
         if (life == 2)
-            gameObject.GetComponent<Renderer>().material.color = new Color(200, 0, 0);
+            gameObject.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
         if (life == 1)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 200, 0);
-        if (life == 0)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 200);
-        //make ball go from black to white to indicate transition. How to set RGB values?
+            gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
         if (life == 0)
         {
-            Destroy(gameObject,.5f);
+            Destroy(gameObject,0.0f);
             print("Ball Destroyed");
             GameObject hud = GameObject.Find("HUDManager");
             hud.GetComponent<HUDManager>().incrementDevoured(); //How do I tell the hudmanager to increment the score when this is devoured?

@@ -6,11 +6,10 @@ public class Rotate : MonoBehaviour {
 
     int speed = 100;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-
+    public void setSpeed(int _speed)
+    {
+        speed = _speed;
+    }
 
     void OnTriggerEnter2D(Collider2D center)
     {

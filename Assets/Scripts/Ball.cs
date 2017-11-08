@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D bounced)
     {
-        print("Ball bounced");
+        //print("Ball bounced");
         if (life == 5)
             gameObject.GetComponent<Renderer>().material.color = new Color(255, 0,0);
         if (life == 4)
@@ -23,9 +23,9 @@ public class Ball : MonoBehaviour {
         if (life == 0)
         {
             Destroy(gameObject,0.0f);
-            print("Ball Destroyed");
+            //print("Ball Destroyed");
             GameObject hud = GameObject.Find("HUDManager");
-            hud.GetComponent<HUDManager>().incrementDevoured(); //How do I tell the hudmanager to increment the score when this is devoured?
+            hud.GetComponent<HUDManager>().incrementDevoured();
         }
         life--;
     }
@@ -38,6 +38,7 @@ public class Ball : MonoBehaviour {
             hud.GetComponent<HUDManager>().incrementEntered();
         }
         
+        //Destroy objects that go too far down - create floor that they trigger interact with. Maybe can check the type/name of the 2d collider?
         //How to check from which direction the object passed? Check current position and if it's outside the circle, -life
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Rotate : MonoBehaviour {
 
     int speed = 100;
+    AudioSource source;
 
     public void setSpeed(int _speed)
     {
@@ -18,17 +19,32 @@ public class Rotate : MonoBehaviour {
 
     // Update is called once per frame
 
+    private void Start()
+    {
+        source = gameObject.GetComponent<AudioSource>();
+    }
+
     void Update () {
 
         if (Input.GetKey("j"))
         {
             //print("s pushed");
             transform.Rotate(Vector3.forward * Time.deltaTime * speed);
+            if (!source.isPlaying)
+            {
+                source.Play();
+            }
+            
         }
         else if(Input.GetKey("k"))
         {
             //print("d pushed");
             transform.Rotate(Vector3.back * Time.deltaTime * speed);
+            if (!source.isPlaying)
+            {
+                source.Play();
+            }
+
         }
     }
 }

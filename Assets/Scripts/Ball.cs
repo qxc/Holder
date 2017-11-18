@@ -4,32 +4,53 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-    int life = 5;
-    bool entered = false;
+    protected int life = 5;
+    protected bool entered = false;
+    protected AudioSource source;
+    protected new Renderer renderer;
+    protected static GameObject hud;
+    protected GameObject plat;
 
-    void OnCollisionEnter2D(Collision2D bounced)
+    private void Start()
+    {
+        source = gameObject.GetComponent<AudioSource>();
+        renderer = gameObject.GetComponent<Renderer>();
+        hud = GameObject.Find("HUDManager");
+        plat = GameObject.Find("Platform");
+    }
+
+    private void Update()
+    {
+        if (gameObject.transform.position.y <= -5.5)
+            Destroy(gameObject);
+    }
+
+    protected virtual void OnCollisionEnter2D(Collision2D bounced)
     {
         //print("Ball bounced");
+        source.Play();
+        source.pitch = source.pitch + .25f;
+        plat.GetComponent<Platform>().changeSize(.2f);
         if (life == 5)
-            gameObject.GetComponent<Renderer>().material.color = new Color(255, 0,0);
-        if (life == 4)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 50, 50);
-        if (life == 3)
-            gameObject.GetComponent<Renderer>().material.color = new Color(255, 190, 0);
-        if (life == 2)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
-        if (life == 1)
-            gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 0);
-        if (life == 0)
+            renderer.material.color = new Color(255, 0,0);
+        else if (life == 4)
+            renderer.material.color = new Color(0, 50, 50);
+        else if (life == 3)
+            renderer.material.color = new Color(255, 190, 0);
+        else if (life == 2)
+            renderer.material.color = new Color(0, 255, 0);
+        else if (life == 1)
+            renderer.material.color = new Color(0, 0, 0);
+        else if (life == 0)
         {
-            Destroy(gameObject,0.0f);
+            gameObject.layer = 8;
+            Destroy(gameObject,0.1f);
             //print("Ball Destroyed");
-            GameObject hud = GameObject.Find("HUDManager");
             hud.GetComponent<HUDManager>().incrementDevoured();
         }
         life--;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (!entered)
         {

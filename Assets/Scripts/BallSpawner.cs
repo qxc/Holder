@@ -5,12 +5,15 @@ using UnityEngine;
 public class BallSpawner : MonoBehaviour {
     public Transform ball;
     public Transform garbageBall;
+    public Transform shirtBall;
     //int xRange = 8;
     //int yRange = 4;
     bool direction;
     Rigidbody2D myBody;
     private AudioSource meow;
-    int frequencyGarbage = 1;
+    int upperRandom = 10; // range of numbers generated to determine which ball to spawn
+    int frequencyGarbage = 2; // at least 1
+    int frequencyShirt = 5; // Must be higher than frequencyGarbage
     
 
     // Use this for initialization
@@ -24,15 +27,17 @@ public class BallSpawner : MonoBehaviour {
     void spawnBall()
     {
         Transform newBall;
-        if(Random.Range(1, frequencyGarbage) == 1)
+        int randomBall = Random.Range(1, upperRandom);
+        if (randomBall <= frequencyGarbage)
         {
                 newBall = Instantiate(garbageBall, new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0), Quaternion.identity);
         }
 
-        else{
-                newBall = Instantiate(ball, new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0), Quaternion.identity);
-                
+        else if(randomBall > frequencyGarbage && randomBall <= frequencyShirt){
+                newBall = Instantiate(shirtBall, new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0), Quaternion.identity);
             }
+        else
+            newBall = Instantiate(ball, new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0), Quaternion.identity);
         Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector3(350, 200, 0));
         rb.AddTorque(-5f);

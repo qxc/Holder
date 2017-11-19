@@ -8,7 +8,7 @@ public class HUDManager: MonoBehaviour {
 
     public Text time;
     public Text score;
-    int timeLeft = 30;
+    int timeLeft = 60;
     static int currentScore = 0;
     bool isPaused = false;
     public Text paused;

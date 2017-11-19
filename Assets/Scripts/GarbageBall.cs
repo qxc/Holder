@@ -8,7 +8,7 @@ public class GarbageBall : Ball
     //Figure out how to override collision from ball that inherits from
     protected override void OnCollisionEnter2D(Collision2D bounced)
     {
-        //print("Ball bounced");
+        print("Garbage Ball Bounced");
         source.Play();
         source.pitch = source.pitch - .25f;
         plat.GetComponent<Platform>().changeSize(.2f);
